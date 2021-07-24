@@ -1,11 +1,12 @@
 const core = require('@actions/core')
 const minimatch = require('minimatch')
-const { getArrayInput } = require('./utils')
+const { getArrayInput, getRawInput } = require('./utils')
 
 const run = async() => {
   try {
+    // 必填参数就设置 required，没有填就会自动抛错出去
     const rawStrings = core.getInput('strings', { required: true })
-    const separator = core.getInput('separator')
+    const separator = getRawInput('separator')
     let strings = rawStrings
     if (!Array.isArray(strings)) {
       // 就支持数组和有分隔符的字符串，不是数组，就转换成数组
@@ -31,7 +32,7 @@ const run = async() => {
     strings.forEach(str => {
       patterns.forEach(pattern => {
         core.info(`${str} 对比 ${pattern}`)
-        if (minimatch(str, pattern)) matchingFiles.push(str)
+        if (minimatch(str, pattern)) matcStrings.push(str)
       })
     })
     core.endGroup()
@@ -53,7 +54,7 @@ const run = async() => {
       core.setOutput('files', false)
     }
 
-    core.setOutput('files', matchingFiles)
+    core.setOutput('files', matcStrings)
   } catch (error) {
     core.setFailed(error.message)
   }

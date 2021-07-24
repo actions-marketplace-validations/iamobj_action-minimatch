@@ -11,7 +11,11 @@ const getArrayInput = (name, required = false, unique = true) => {
   return unique ? uniqueArray(arrayInput) : arrayInput
 }
 
+// 获取原始变量
+const getRawInput = (name) => process.env[`INPUT_${name.toUpperCase()}`] || ''
+
 module.exports = {
   uniqueArray,
-  getArrayInput
+  getArrayInput,
+  getRawInput
 }
