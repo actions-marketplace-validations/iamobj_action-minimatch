@@ -1,6 +1,6 @@
 {
   "name": "action-minimatch",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "github aciton minimatch",
   "main": "src/index.js",
   "repository": "git@github.com:iamobj/action-minimatch.git",
