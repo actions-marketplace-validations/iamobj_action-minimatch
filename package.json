@@ -6,7 +6,6 @@
   "repository": "git@github.com:iamobj/action-minimatch.git",
   "author": "iamobj <twboss8@126.com>",
   "license": "MIT",
-  "type": "module",
   "scripts": {
     "build": "ncc build src/index.js"
   },

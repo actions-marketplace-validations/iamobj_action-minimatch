@@ -1,6 +1,6 @@
-import core from '@actions/core'
-import minimatch from 'minimatch'
-import { getArrayInput } from './utils'
+const core = require('@actions/core')
+const minimatch = require('minimatch')
+const { getArrayInput } = require('./utils')
 
 const run = async() => {
   try {

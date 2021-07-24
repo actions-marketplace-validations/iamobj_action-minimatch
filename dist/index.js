@@ -1,5 +1,5 @@
-import { createRequire as __WEBPACK_EXTERNAL_createRequire } from "module";
-/******/ var __webpack_modules__ = ({
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
 
 /***/ 241:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
@@ -1705,11 +1705,26 @@ function regExpEscape (s) {
 
 /***/ }),
 
-/***/ 411:
-/***/ ((module) => {
+/***/ 608:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-module.exports = eval("require")("./utils");
+const { getInput } = __nccwpck_require__(186)
 
+// 数组去重
+const uniqueArray = arr => [...new Set(arr)]
+
+// 获取数组参数
+const getArrayInput = (name, required = false, unique = true) => {
+  const arrayInput = getInput(name, {required}).split(/\r?\n/).reduce((acc, line) => acc.concat(line).filter(item => item).map(item => item.trim()),
+    []
+  )
+  return unique ? uniqueArray(arrayInput) : arrayInput
+}
+
+module.exports = {
+  uniqueArray,
+  getArrayInput
+}
 
 /***/ }),
 
@@ -1717,7 +1732,7 @@ module.exports = eval("require")("./utils");
 /***/ ((module) => {
 
 "use strict";
-module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("fs");
+module.exports = require("fs");
 
 /***/ }),
 
@@ -1725,7 +1740,7 @@ module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("fs");
 /***/ ((module) => {
 
 "use strict";
-module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("os");
+module.exports = require("os");
 
 /***/ }),
 
@@ -1733,116 +1748,115 @@ module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("os");
 /***/ ((module) => {
 
 "use strict";
-module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("path");
+module.exports = require("path");
 
 /***/ })
 
-/******/ });
+/******/ 	});
 /************************************************************************/
-/******/ // The module cache
-/******/ var __webpack_module_cache__ = {};
-/******/ 
-/******/ // The require function
-/******/ function __nccwpck_require__(moduleId) {
-/******/ 	// Check if module is in cache
-/******/ 	var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 	if (cachedModule !== undefined) {
-/******/ 		return cachedModule.exports;
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __nccwpck_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		var threw = true;
+/******/ 		try {
+/******/ 			__webpack_modules__[moduleId].call(module.exports, module, module.exports, __nccwpck_require__);
+/******/ 			threw = false;
+/******/ 		} finally {
+/******/ 			if(threw) delete __webpack_module_cache__[moduleId];
+/******/ 		}
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
 /******/ 	}
-/******/ 	// Create a new module (and put it into the cache)
-/******/ 	var module = __webpack_module_cache__[moduleId] = {
-/******/ 		// no module.id needed
-/******/ 		// no module.loaded needed
-/******/ 		exports: {}
-/******/ 	};
-/******/ 
-/******/ 	// Execute the module function
-/******/ 	var threw = true;
-/******/ 	try {
-/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __nccwpck_require__);
-/******/ 		threw = false;
-/******/ 	} finally {
-/******/ 		if(threw) delete __webpack_module_cache__[moduleId];
-/******/ 	}
-/******/ 
-/******/ 	// Return the exports of the module
-/******/ 	return module.exports;
-/******/ }
-/******/ 
+/******/ 	
 /************************************************************************/
-/******/ /* webpack/runtime/compat */
-/******/ 
-/******/ if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = new URL('.', import.meta.url).pathname.slice(import.meta.url.match(/^file:\/\/\/\w:/) ? 1 : 0, -1) + "/";
-/******/ 
+/******/ 	/* webpack/runtime/compat */
+/******/ 	
+/******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
+/******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
-"use strict";
-/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(186);
-/* harmony import */ var minimatch__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(973);
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(411);
-
-
-
+const core = __nccwpck_require__(186)
+const minimatch = __nccwpck_require__(973)
+const { getArrayInput } = __nccwpck_require__(608)
 
 const run = async() => {
   try {
-    const rawStrings = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('strings', { required: true })
-    const separator = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('separator')
+    const rawStrings = core.getInput('strings', { required: true })
+    const separator = core.getInput('separator')
     let strings = rawStrings
     if (!Array.isArray(strings)) {
       // 就支持数组和有分隔符的字符串，不是数组，就转换成数组
       strings = strings.split(separator)
     }
 
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.startGroup('解析出的 string：')
+    core.startGroup('解析出的 string：')
     strings.forEach(str => {
-      _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(str)
+      core.info(str)
     })
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.endGroup()
+    core.endGroup()
 
-    const patterns = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.getArrayInput)('patterns', true)
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.startGroup('解析出的 pattern：')
+    const patterns = getArrayInput('patterns', true)
+    core.startGroup('解析出的 pattern：')
     patterns.forEach(pattern => {
-      _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(pattern)
+      core.info(pattern)
     })
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.endGroup()
+    core.endGroup()
 
     const matcStrings = [] // 用来存储匹配的字符
 
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.startGroup('查找过程：')
+    core.startGroup('查找过程：')
     strings.forEach(str => {
       patterns.forEach(pattern => {
-        _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`${str} 对比 ${pattern}`)
-        if (minimatch__WEBPACK_IMPORTED_MODULE_1__(str, pattern)) matchingFiles.push(str)
+        core.info(`${str} 对比 ${pattern}`)
+        if (minimatch(str, pattern)) matchingFiles.push(str)
       })
     })
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.endGroup()
+    core.endGroup()
 
     if (matcStrings.length) {
-      _actions_core__WEBPACK_IMPORTED_MODULE_0__.startGroup('匹配到的 string：')
+      core.startGroup('匹配到的 string：')
       matcStrings.forEach(str => {
-        _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(str)
+        core.info(str)
       })
-      _actions_core__WEBPACK_IMPORTED_MODULE_0__.endGroup()
+      core.endGroup()
 
       if (Array.isArray(rawStrings)) {
-        _actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput('files', matcStrings)
+        core.setOutput('files', matcStrings)
       } else {
-        _actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput('files', matcStrings.join(separator))
+        core.setOutput('files', matcStrings.join(separator))
       }
     } else {
-      _actions_core__WEBPACK_IMPORTED_MODULE_0__.info('没有匹配的文件')
-      _actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput('files', false)
+      core.info('没有匹配的文件')
+      core.setOutput('files', false)
     }
 
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput('files', matchingFiles)
+    core.setOutput('files', matchingFiles)
   } catch (error) {
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed(error.message)
+    core.setFailed(error.message)
   }
 }
 
 run()
 })();
 
+module.exports = __webpack_exports__;
+/******/ })()
+;
