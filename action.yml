@@ -7,7 +7,7 @@ branding:
   icon: 'file'
   color: 'orange'
 runs:
-  using: node14
+  using: node12
   main: dist/index.js
 inputs:
   strings:
