@@ -1721,9 +1721,13 @@ const getArrayInput = (name, required = false, unique = true) => {
   return unique ? uniqueArray(arrayInput) : arrayInput
 }
 
+// 获取原始变量
+const getRawInput = (name) => process.env[`INPUT_${name.toUpperCase()}`] || ''
+
 module.exports = {
   uniqueArray,
-  getArrayInput
+  getArrayInput,
+  getRawInput
 }
 
 /***/ }),
@@ -1795,12 +1799,13 @@ var __webpack_exports__ = {};
 (() => {
 const core = __nccwpck_require__(186)
 const minimatch = __nccwpck_require__(973)
-const { getArrayInput } = __nccwpck_require__(608)
+const { getArrayInput, getRawInput } = __nccwpck_require__(608)
 
 const run = async() => {
   try {
+    // 必填参数就设置 required，没有填就会自动抛错出去
     const rawStrings = core.getInput('strings', { required: true })
-    const separator = core.getInput('separator')
+    const separator = getRawInput('separator')
     let strings = rawStrings
     if (!Array.isArray(strings)) {
       // 就支持数组和有分隔符的字符串，不是数组，就转换成数组
@@ -1826,7 +1831,7 @@ const run = async() => {
     strings.forEach(str => {
       patterns.forEach(pattern => {
         core.info(`${str} 对比 ${pattern}`)
-        if (minimatch(str, pattern)) matchingFiles.push(str)
+        if (minimatch(str, pattern)) matcStrings.push(str)
       })
     })
     core.endGroup()
@@ -1848,7 +1853,7 @@ const run = async() => {
       core.setOutput('files', false)
     }
 
-    core.setOutput('files', matchingFiles)
+    core.setOutput('files', matcStrings)
   } catch (error) {
     core.setFailed(error.message)
   }
