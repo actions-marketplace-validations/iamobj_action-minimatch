@@ -53,8 +53,6 @@ const run = async() => {
       core.info('没有匹配的文件')
       core.setOutput('files', false)
     }
-
-    core.setOutput('files', matcStrings)
   } catch (error) {
     core.setFailed(error.message)
   }
