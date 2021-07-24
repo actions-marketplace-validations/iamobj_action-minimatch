@@ -1,0 +1,27 @@
+# action.yml 文件规则 https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
+
+name: action minimatch
+description: github aciton minimatch
+author: iamc/iamobj
+branding:
+  icon: 'file'
+  color: 'orange'
+runs:
+  using: node14
+  main: dist/index.js
+inputs:
+  strings:
+    description: 有分隔符的字符串或字符串数组
+    required: true
+  separator:
+    description: 文件名字符串分隔符，默认空格
+    default: ' '
+    required: false
+  patterns:
+    description: 查看https://github.com/isaacs/minimatch#properties
+    required: true
+outputs:
+  files: 
+    description: >
+      至少有一个匹配，则返回匹配的文件名（filenames 参数是数组就返回数组，是有间隔的字符串，就返回有间隔字符串，间隔符用参数 separator ）
+      没有匹配，则为False
